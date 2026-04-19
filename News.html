@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>News - ZAKARIA AND ASSOCIATES</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- jQuery (required for nav JS) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@300;400;600;700&family=Nunito&family=Playfair+Display&display=swap" rel="stylesheet">
+
+  <!-- ===== CSS (COMBINED: NAVBAR/FOOTER FROM CAROUSEL PAGE + NEWS PAGE STYLES) ===== -->
+  <style>
+    /* ---------- RESET & BASE (from carousel page) ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* NAVIGATION BAR - FIXED (EXACT from carousel page) */
+    .navigation {
+      height: 70px;
+      background: #ffffff;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 10000;
+      border-bottom: solid thin #717171;
+    }
+
+    /* Add padding to body to prevent content from hiding under navbar */
+    body { 
+      margin: 0;
+      padding: 0;
+      padding-top: 70px;
+      font-family: 'Open Sans', sans-serif;
+      line-height: 1.6;
+      background: #f8f9fa;
+      overflow-x: hidden;
+    }
+
+    /* LOGO BACKGROUND */ 
+    .brand {
+      position: absolute;
+      padding-left: 8px;
+      float: left;
+      line-height: 70px;
+      text-transform: uppercase;
+      font-size: 1.4em;
+    }
+
+    .brand a,
+    .brand a:visited {
+      color: #000000;
+      text-decoration: none;
+    }
+
+    /* LOGO IMAGE */ 
+    .brand img {
+      margin-top: 2vh;
+      margin-left: 0vh;
+      height: 4.8vh;
+      width: auto;
+      display: block;
+      transition: filter 0.2s ease;
+    }
+
+    /* LOGO IMAGE HOVER */ 
+    .brand img:hover {
+      filter: invert(100%) drop-shadow(2px 2px 2px rgba(0, 0, 0, 1));
+    }
+
+    .nav-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      height: 100%;
+    }
+
+    nav {
+      float: right;
+      height: 100%;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    nav ul li {
+      float: left;
+      position: relative;
+      height: 100%;
+    }
+
+    /* MENU BACKGROUND DESIGN*/ 
+    nav ul li a,
+    nav ul li a:visited {
+      display: block;
+      padding: 0 20px;
+      line-height: 70px;
+      background: white;
+      color: #000000;
+      text-decoration: none;
+      transition: color 0.2s ease, background-color 0.2s ease;
+      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      height: 100%;
+    }
+
+    /* MENU HOVER DESIGN (original carousel style with gradient/image) */ 
+    nav ul li a:hover {
+      background:
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url("NAV BACKGROUND.jpg");
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+    }
+
+    nav ul li a:not(:only-child)::after {
+      padding-left: 4px;
+      content: " ▾";
+    }
+
+    nav ul li ul li {
+      min-width: 190px;
+      height: auto;
+    }
+
+    nav ul li ul li a {
+      padding: 15px;
+      line-height: 20px;
+      height: auto;
+    }
+
+    /* MENU DROPDOWNS DESIGN*/ 
+    .nav-dropdown {
+      position: absolute;
+      display: none;
+      z-index: 10001;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+      top: 70px;
+    }
+
+    /* MENU MOBILE DESIGN*/
+    .nav-mobile {
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #ffffff;
+      height: 70px;
+      width: 70px;
+      border-bottom: solid thin #717171;
+      z-index: 10002;
+    }
+
+    /* MENU MOBILE SIZING*/
+    @media only screen and (max-width: 798px) {
+      .nav-mobile {
+        display: block;
+        margin-top: 0px;
+      }
+
+      nav {
+        width: 100%;
+        padding: 0;
+        float: none;
+        height: auto;
+      }
+
+      nav ul {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        z-index: 9999;
+      }
+
+      nav ul li {
+        float: none; 
+        border-bottom: solid thin #717171;
+        border-top: solid thin #ffffff;
+        height: auto;
+        width: 100%;
+      }
+
+      nav ul li a {
+        padding: 15px;
+        line-height: 20px;
+        height: auto;
+      }
+
+      nav ul li ul li a {
+        padding-left: 30px;
+      }
+
+      .nav-dropdown {
+        position: static;
+        top: auto;
+        width: 100%;
+      }
+    }
+
+    /* MENU PC SIZING */
+    @media screen and (min-width: 799px) {
+      .nav-list {
+        display: block !important;
+      }
+    }
+    
+    #nav-toggle {
+      position: absolute;
+      left: 18px;
+      top: 22px;
+      cursor: pointer;
+      padding: 10px 35px 16px 0;
+    }
+
+    /* MENU MOBILE BUTTON DESIGN*/
+    #nav-toggle span,
+    #nav-toggle span::before,
+    #nav-toggle span::after {
+      cursor: pointer; 
+      border-radius: 1px;
+      height: 5px;
+      width: 35px;
+      background: #000000;
+      position: absolute;
+      display: block;
+      content: "";
+      transition: all 300ms ease-in-out;
+    }
+
+    #nav-toggle span::before {
+      top: -10px;
+    }
+
+    #nav-toggle span::after {
+      bottom: -10px;
+    }
+
+    #nav-toggle.active span {
+      background-color: transparent;
+    }
+
+    #nav-toggle.active span::before,
+    #nav-toggle.active span::after {
+      top: 0;
+    }
+
+    #nav-toggle.active span::before {
+      transform: rotate(45deg);
+    }
+
+    #nav-toggle.active span::after {
+      transform: rotate(-45deg);
+    }
+
+    /* ---------- NEWS PAGE STYLES (preserved from original news page) ---------- */
+    h1 {
+      font-size: 250%;
+    }
+
+    p {
+      font-size: 140%;
+      line-height: 150%;
+      color: #333;
+    }
+
+    /* First parallax slide */
+    .parallax-slide {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .parallax-slide::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+
+    .parallax-content {
+      width: 70%;
+      max-width: 800px;
+      padding: 40px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      -webkit-mask-image:
+        linear-gradient(to right, transparent, black 12%, black 80%, transparent),
+        linear-gradient(to bottom, transparent, black 12%, black 80%, transparent);
+      mask-image:
+        linear-gradient(to right, transparent, black 15%, black 75%, transparent),
+        linear-gradient(to bottom, transparent, black 24%, black 75%, transparent);
+      mask-composite: intersect;
+      -webkit-mask-composite: source-in;
+      color: #ffffff;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      margin: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .parallax-content p {
+      color: #ffffff;
+    }
+
+    /* News Section */
+    .news-section {
+      position: relative;
+      padding: 80px 20px;
+      min-height: 100vh;
+      width: 100%;
+      background: #f8f9fa;
+      background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .news-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgb(235, 235, 235);
+      z-index: 1;
+    }
+
+    .news-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      color: #333;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      font-family: "Georgia", "Times New Roman", serif;
+      font-weight: 600;
+    }
+    
+    .section-subtitle {
+      text-align: center;
+      color: #020202;
+      margin-bottom: 50px;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* Search Container - Fixed Responsiveness */
+    .search-container {
+      max-width: 800px;
+      margin: 0 auto 60px;
+      position: relative;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .search-bar {
+      width: 100%;
+      padding: 18px 25px;
+      padding-right: 70px;
+      font-size: 1.2rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+    
+    .search-bar:focus {
+      outline: none;
+      border-color: #2581DC;
+      box-shadow: 0 4px 20px rgba(37, 129, 220, 0.2);
+    }
+    
+    .search-btn {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #a4a9ae;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.3rem;
+    }
+    
+    .search-btn:hover {
+      background: #3f3f3f;
+      transform: translateY(-50%) scale(1.05) rotate(5deg);
+    }
+    
+    /* Blog Style Articles */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    
+    .news-article {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      min-height: 280px;
+    }
+    
+    .news-article:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    }
+    
+    .article-image {
+      width: 40%;
+      min-width: 300px;
+      object-fit: cover;
+    }
+    
+    .article-content {
+      padding: 30px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .article-title {
+      font-size: 1.8rem;
+      margin: 0 0 15px;
+      color: #333;
+      line-height: 1.3;
+    }
+    
+    .article-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .article-title a:hover {
+      color: #2581DC;
+    }
+    
+    .article-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #666;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .article-date {
+      color: #767879;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .article-category {
+      background: #f0f7ff;
+      color: #2581DC;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    
+    .article-summary {
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 25px;
+      font-size: 1.05rem;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+    }
+    
+    /* READ MORE BUTTON - Now styled as a link */
+    .read-more-link {
+      background: transparent;
+      color: #000000;
+      border: 2px solid #000000;
+      padding: 10px 25px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      align-self: flex-start;
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    
+    .read-more-link:hover {
+      background: #000000;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+    
+    .no-results {
+      text-align: center;
+      padding: 60px;
+      color: #666;
+      font-size: 1.3rem;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    /* Load More Button */
+    .load-more-container {
+      text-align: center;
+      margin-top: 60px;
+    }
+    
+    .load-more-btn {
+      background: #3d3d3d;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .load-more-btn:hover {
+      background: #ffffff;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(37, 129, 220, 0.3);
+      color: #000000;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .news-article {
+        flex-direction: column;
+        min-height: auto;
+      }
+      
+      .article-image {
+        width: 100%;
+        min-width: 100%;
+        height: 250px;
+      }
+      
+      .parallax-content {
+        width: 85%;
+        padding: 30px;
+        margin: 15px;
+      }
+      
+      .search-container {
+        padding: 15px;
+        margin-bottom: 40px;
+      }
+      
+      .search-bar {
+        padding: 15px 20px;
+        padding-right: 60px;
+        font-size: 1.1rem;
+      }
+      
+      .search-btn {
+        width: 50px;
+        height: 50px;
+        right: 20px;
+        font-size: 1.1rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 2.2rem;
+      }
+      
+      .article-title {
+        font-size: 1.5rem;
+      }
+      
+      .search-container {
+        padding: 15px;
+        margin-bottom: 30px;
+      }
+      
+      .search-bar {
+        padding: 12px 15px;
+        padding-right: 50px;
+        font-size: 1rem;
+      }
+      
+      .search-btn {
+        width: 45px;
+        height: 45px;
+        right: 17px;
+        font-size: 1rem;
+      }
+      
+      .parallax-content {
+        width: 90%;
+        padding: 25px;
+        margin: 10px;
+      }
+      
+      .parallax-content h1 {
+        font-size: 2rem;
+      }
+      
+      .parallax-content p {
+        font-size: 1.1rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .section-title {
+        font-size: 1.8rem;
+      }
+      
+      .section-subtitle {
+        font-size: 1rem;
+      }
+      
+      .search-bar {
+        padding: 10px 15px;
+        padding-right: 45px;
+        font-size: 0.95rem;
+      }
+      
+      .search-btn {
+        width: 40px;
+        height: 40px;
+        right: 15px;
+        font-size: 0.9rem;
+      }
+      
+      .article-content {
+        padding: 20px;
+      }
+      
+      .article-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      
+      .parallax-content {
+        padding: 20px;
+      }
+    }
+
+    /* ---------- FOOTER (EXACT from carousel page) ---------- */
+    .footer-distributed {
+      background: #000000;
+      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+      box-sizing: border-box;
+      width: 100%;
+      text-align: left;
+      font: bold 16px sans-serif;
+      padding: 55px 50px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .footer-distributed .footer-left,
+    .footer-distributed .footer-center,
+    .footer-distributed .footer-right {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .footer-distributed .footer-left {
+      width: 40%;
+    }
+
+    .footerlogo {
+      filter: invert(100%);
+      margin: 0;
+      width: 60%;
+    }
+
+    .footer-distributed .footer-links {
+      color: #ffffff;
+      margin: 20px 0 12px;
+      padding: 0;
+    }
+
+    .footer-distributed .footer-links a {
+      display: inline-block;
+      line-height: 1.8;
+      font-weight: 400;
+      text-decoration: none;
+      color: inherit;
+      font: normal 14px sans-serif;
+    }
+    
+    .footer-distributed .footer-links a:hover {
+      display: inline-block;
+      line-height: 1.8;
+      font-weight: 400;
+      text-decoration: underline;
+      color: inherit;
+    }
+
+    .footer-distributed .footer-company-name {
+      color: #9f9696;
+      font: normal 14px sans-serif;
+      margin: 0;
+    }
+
+    .footer-distributed .footer-center {
+      width: 35%;
+    }
+
+    .footer-distributed .footer-center i {
+      background-color: #ffffff;
+      color: #000000;
+      font-size: 15px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 30px;
+      margin: 10px 10px;
+      vertical-align: middle;
+    }
+
+    .footer-distributed .footer-center i.fa-envelope {
+      font-size: 17px;
+      line-height: 30px;
+    }
+
+    .footer-distributed .footer-center p {
+      display: inline-block;
+      color: #ffffff;
+      font-weight: 400;
+      vertical-align: middle;
+      margin: 0;
+      font: normal 14px sans-serif;
+    }
+
+    .footer-distributed .footer-center p span {
+      display: block;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 2;
+    }
+
+    .footer-distributed .footer-center p a {
+      color: lightseagreen;
+      text-decoration: none;
+    }
+
+    .footer-distributed .footer-links a:before {
+      content: "|";
+      font-weight: 300;
+      font-size: 20px;
+      left: 0;
+      color: #fff;
+      display: inline-block;
+      padding-right: 5px;
+    }
+
+    .footer-distributed .footer-links .link-1:before {
+      content: none;
+    }
+
+    .footer-distributed .footer-right {
+      width: 20%;
+    }
+
+    .footer-distributed .footer-company-about {
+      line-height: 20px;
+      color: #92999f;
+      font-size: 13px;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .footer-distributed .footer-company-about span {
+      display: block;
+      color: #ffffff;
+      font: normal 14px sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .footer-distributed .footer-icons {
+      margin-top: 25px;
+    }
+
+    .footer-distributed .footer-icons a {
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      border-radius: 2px;
+      font-size: 20px;
+      color: #ffffff;
+      text-align: center;
+      line-height: 35px;
+      margin-right: 15px;
+      margin-bottom: 5px;
+    }
+
+    .footer-distributed .footer-icons a img {
+      width: 35px;
+      height: 35px;
+      filter: grayscale(100%);
+      transition: 0.3s ease;
+    }
+    
+    .footer-distributed .footer-icons a img:hover {
+      filter: grayscale(0%);
+    }
+
+    @media (max-width: 880px) {
+      .footer-distributed {
+        font: bold 14px sans-serif;
+        padding: 45px 30px;
+      }
+      .footer-distributed .footer-left,
+      .footer-distributed .footer-center,
+      .footer-distributed .footer-right {
+        display: block;
+        width: 100%;
+        margin-bottom: 40px;
+        text-align: center;
+      }
+      .footer-distributed .footer-center i {
+        margin-left: 0;
+      }
+      .footerlogo {
+        filter: invert(100%);
+        margin: 0 auto;
+        width: 35%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR (EXACT from carousel page) ===== -->
+  <section class="navigation">
+    <div class="nav-container">
+      <div class="brand">
+        <a href="Home.html"><img src="Logo%20Post.png" alt="Logo" ></a>
+      </div>
+
+      <nav>
+        <div class="nav-mobile">
+          <a id="nav-toggle" href="#!"><span></span></a>
+        </div>
+
+        <ul class="nav-list">
+          <li><a href="Home.html">Home</a></li>
+          <li><a href="News.html">Our Stories</a></li>
+          <li>
+            <a href="#!">Our People</a>
+            <ul class="nav-dropdown">
+              <li><a href="Meet%20the%20Team.html">Meet the Lawyers</a></li>
+              <li><a href="Collaborators.html">Our Friends and Partners</a></li>
+            </ul>
+          </li>
+          <li><a href="Blog.html">About Us</a></li>
+          <li>
+            <a href="#!">More About Us</a>
+            <ul class="nav-dropdown">
+              <li><a href="Achievements.html">Our Achievements</a></li>
+              <li><a href="Topic%20Intro.html">Our History</a></li>
+              <li><a href="Topic%20Intro.html">Our Recognition</a></li>
+            </ul>
+          </li>
+          <li><a href="Contact%20Us.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ===== PARALLAX SLIDE (preserved from news page) ===== -->
+  <div class="parallax-slide" id="slide1">
+    <div class="parallax-content">
+      <h1>Welcome to Zakaria & Associates</h1>
+      <p>Your destination for legal insights, firm news, and the latest developments in law. Stay informed with our curated content from our expert attorneys.</p>
+      <p style="margin-top: 30px; font-size: 1.1rem;">Scroll down to explore our latest articles</p>
+    </div>
+  </div>
+
+  <!-- ===== NEWS SECTION (preserved from news page) ===== -->
+  <section class="news-section" id="newsSection">
+    <div class="news-container">
+      <h2 class="section-title">Latest News & Articles</h2>
+      <p class="section-subtitle">Discover insightful articles on legal developments, firm achievements, and industry insights. Use the search to find specific topics.</p>
+      
+      <div class="search-container">
+        <input type="text" class="search-bar" id="newsSearch" placeholder="Search for articles by keyword, topic, or category...">
+        <button class="search-btn" id="searchButton">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+      
+      <div class="news-list" id="newsList">
+        <!-- News articles will be loaded here dynamically -->
+      </div>
+      
+      <div class="load-more-container">
+        <button class="load-more-btn" id="loadMoreBtn">
+          <i class="fas fa-plus"></i> Load More Articles
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER (EXACT from carousel page) ===== -->
+  <footer class="footer-distributed">
+    <div class="footer-left">
+      <h3> <img class="footerlogo" href="Home.html" src="Logo%20Post.png" alt="Logo"> </h3>
+      <p class="footer-links">
+        <a href="Home.html" class="link-1">Home</a>
+        <a href="News.html">Blog</a>
+        <a href="Meet%20the%20Team.html">Team</a>
+        <a href="#">Terms and Policies</a>
+        <a href="Collaborators.html">Partnerships</a>
+        <a href="Contact%20Us.html">Contact</a>
+      </p>
+      <p class="footer-company-name">ZAKARIA AND ASSOCIATES © 2015</p>
+    </div>
+
+    <div class="footer-center">
+      <div>
+        <i class="fa fa-map-marker"></i>
+        <p><span>444 S. Cedros Ave</span> Solana Beach, California</p>
+      </div>
+      <div>
+        <i class="fa fa-phone"></i>
+        <p>+1.555.555.5555</p>
+      </div>
+      <div>
+        <i class="fa fa-envelope"></i>
+        <p><a href="mailto:support@company.com">support@company.com</a></p>
+      </div>
+    </div>
+
+    <div class="footer-right">
+      <p class="footer-company-about">
+        <span>About the firm</span>
+        Zakaria & Associates is a premier law firm dedicated to excellence, integrity, and justice. With over 25 years of experience, we've set the standard for legal representation.
+      </p>
+      <div class="footer-icons">
+        <a href="#"><img src="Facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="Instagram.png" alt="Instagram"></a>
+        <a href="#"><img src="Twitter.png" alt="Twitter"></a>
+      </div>
+    </div>
+  </footer>
+    
+  <!-- ===== JAVASCRIPT (NAV + NEWS FUNCTIONALITY) ===== -->
+  <script>
+    // Navigation JS (from carousel page)
+    (function($) {
+      $(function() {
+        $('nav ul li a:not(:only-child)').on('click', function(e) {
+          $(this).siblings('.nav-dropdown').toggle();
+          $('.nav-dropdown').not($(this).siblings()).hide();
+          e.stopPropagation();
+        });
+
+        $('html').on('click', function() {
+          $('.nav-dropdown').hide();
+        });
+
+        $('#nav-toggle').on('click', function() {
+          $('nav ul').slideToggle();
+          this.classList.toggle('active');
+        });
+      });
+    })(jQuery);
+    
+    // News data with LINKS - UPDATE THESE URLs WITH YOUR ACTUAL PAGE LINKS
+    const newsArticles = [
+      {
+        id: 1,
+        title: "The Future of Web Development in 2024",
+        summary: "Explore the latest trends and technologies shaping the future of web development. From AI-powered tools to new frameworks like React 19 and Vue 3, discover what developers need to know to stay ahead. We'll also cover emerging technologies like WebAssembly and the growing importance of web performance optimization in an increasingly mobile-first world.",
+        date: "March 15, 2024",
+        category: "Technology",
+        image: "https://images.unsplash.com/photo-1627398242454-45a1465c2479?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        link: "Blog.html"
+      },
+      {
+        id: 2,
+        title: "Sustainable Tech: Green Computing Initiatives",
+        summary: "Major tech companies are investing in sustainable computing practices. Learn about the new initiatives aimed at reducing the carbon footprint of data centers worldwide, including Google's commitment to 24/7 carbon-free energy and Microsoft's water-positive goals. We explore how these efforts are changing the tech industry's environmental impact.",
+        date: "March 12, 2024",
+        category: "Environment",
+        image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        link: "Blog.html"
+      },
+      {
+        id: 3,
+        title: "Artificial Intelligence Revolutionizing Healthcare",
+        summary: "AI is making significant strides in medical diagnostics and treatment planning. This article explores how machine learning algorithms are helping doctors provide better care through early disease detection, personalized treatment plans, and administrative automation. We examine real-world applications and ethical considerations in healthcare AI.",
+        date: "March 10, 2024",
+        category: "Health",
+        image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        link: "Blog.html"
+      },
+      {
+        id: 4,
+        title: "The Rise of Remote Work Culture",
+        summary: "How companies are adapting to permanent remote work arrangements and the tools that make collaboration possible across distances. We analyze productivity trends, mental health considerations, and the economic impact of distributed teams. Includes case studies from companies that have successfully transitioned to fully remote operations.",
+        date: "March 8, 2024",
+        category: "Business",
+        image: "https://images.unsplash.com/photo-1587614382346-4ec70e388b28?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        link: "Blog.html"
+      },
+      {
+        id: 5,
+        title: "New Discoveries in Space Exploration",
+        summary: "Recent space missions have uncovered fascinating information about our solar system. Scientists are excited about potential signs of life on other planets, new exoplanet discoveries, and groundbreaking findings from the James Webb Space Telescope. We break down the most important discoveries and what they mean for humanity's future in space.",
+        date: "March 5, 2024",
+        category: "Science",
+        image: "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        link: "Blog.html"
+      },
+      {
+        id: 6,
+        title: "Cryptocurrency Regulations Update",
+        summary: "Governments worldwide are establishing new regulations for cryptocurrency markets. What this means for investors and the future of digital currencies. We analyze recent regulatory moves in the US, EU, and Asia, and discuss how they might affect blockchain innovation, investor protection, and the mainstream adoption of cryptocurrencies.",
+        date: "March 3, 2024",
+        category: "Finance",
+        image: "https://images.unsplash.com/photo-1620336655055-bd87c5d1d73f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        link: "Blog.html"
+      },
+      {
+        id: 7,
+        title: "Renewable Energy Breakthroughs",
+        summary: "Scientists have developed more efficient solar panels that could revolutionize renewable energy production and make clean power more accessible. We cover the latest advancements in perovskite solar cells, floating wind farms, and next-generation battery storage technology that could accelerate the transition to sustainable energy worldwide.",
+        date: "February 28, 2024",
+        category: "Energy",
+        image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        link: "Blog.html"
+      },
+      {
+        id: 8,
+        title: "The Evolution of E-Learning Platforms",
+        summary: "How online education has transformed over the past decade and what the future holds for digital learning environments. We examine the rise of micro-credentials, the integration of AI tutors, and how platforms are becoming more personalized and interactive. Includes insights from educators and edtech innovators.",
+        date: "February 25, 2024",
+        category: "Education",
+        image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        link: "Blog.html"
+      },
+      {
+        id: 9,
+        title: "Cybersecurity Threats in 2024",
+        summary: "An overview of emerging cybersecurity threats and the best practices individuals and companies should adopt to protect their digital assets. We cover ransomware trends, AI-powered attacks, supply chain vulnerabilities, and provide actionable security recommendations for businesses of all sizes in an increasingly connected world.",
+        date: "February 22, 2024",
+        category: "Security",
+        image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        link: "Blog.html"
+      },
+      {
+        id: 10,
+        title: "Innovations in Electric Vehicles",
+        summary: "Automakers are pushing the boundaries of electric vehicle technology with longer ranges, faster charging, and more affordable options. We test drive the latest models and explore how innovations in battery technology, charging infrastructure, and autonomous features are making EVs more practical than ever before.",
+        date: "February 20, 2024",
+        category: "Automotive",
+        image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        link: "Blog.html"
+      }
+    ];
+    
+    let visibleArticles = 3;
+    let filteredArticles = [...newsArticles];
+    
+    // Function to create article HTML with LINK (replaces the expand/collapse button)
+    function createArticleHTML(article) {
+      return `
+        <article class="news-article" data-id="${article.id}">
+          <img src="${article.image}" alt="${article.title}" class="article-image">
+          <div class="article-content">
+            <h3 class="article-title"><a href="${article.link}">${article.title}</a></h3>
+            <div class="article-meta">
+              <span class="article-date"><i class="far fa-calendar"></i> ${article.date}</span>
+              <span class="article-category">${article.category}</span>
+            </div>
+            <p class="article-summary">${article.summary}</p>
+            <a href="${article.link}" class="read-more-link">
+              <i class="fas fa-book-open"></i> Read Full Article
+            </a>
+          </div>
+        </article>
+      `;
+    }
+    
+    function renderArticles() {
+      const newsList = document.getElementById('newsList');
+      newsList.innerHTML = '';
+      
+      if (filteredArticles.length === 0) {
+        newsList.innerHTML = '<div class="no-results"><i class="fas fa-search" style="font-size: 3rem; margin-bottom: 20px;"></i><h3>No articles found</h3><p>Try a different search term or browse our categories</p></div>';
+        return;
+      }
+      
+      const articlesToShow = filteredArticles.slice(0, visibleArticles);
+      articlesToShow.forEach(article => {
+        newsList.innerHTML += createArticleHTML(article);
+      });
+      
+      const loadMoreBtn = document.getElementById('loadMoreBtn');
+      if (visibleArticles >= filteredArticles.length) {
+        loadMoreBtn.style.display = 'none';
+      } else {
+        loadMoreBtn.style.display = 'inline-flex';
+      }
+    }
+    
+    function filterArticles() {
+      const searchTerm = document.getElementById('newsSearch').value.toLowerCase().trim();
+      if (searchTerm === '') {
+        filteredArticles = [...newsArticles];
+      } else {
+        filteredArticles = newsArticles.filter(article => {
+          const searchableText = (article.title.toLowerCase() + ' ' + article.summary.toLowerCase() + ' ' + article.category.toLowerCase());
+          return searchableText.includes(searchTerm);
+        });
+      }
+      visibleArticles = 3;
+      renderArticles();
+    }
+    
+    function loadMoreArticles() {
+      visibleArticles += 2;
+      renderArticles();
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      renderArticles();
+      document.getElementById('searchButton').addEventListener('click', filterArticles);
+      let searchTimeout;
+      document.getElementById('newsSearch').addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        searchTimeout = setTimeout(filterArticles, 300);
+      });
+      document.getElementById('newsSearch').addEventListener('keyup', function(event) {
+        if (event.key === 'Enter') {
+          clearTimeout(searchTimeout);
+          filterArticles();
+        }
+      });
+      document.getElementById('loadMoreBtn').addEventListener('click', loadMoreArticles);
+    });
+  </script>
+</body>
+</html>

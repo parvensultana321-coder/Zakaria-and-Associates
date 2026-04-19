@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Zakaria & Associates – Meet the Team</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- jQuery (required for nav) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css">
+  
+  <!-- Font Awesome 6 (matching first code) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ---------- NAVIGATION (EXACT FROM FIRST CODE - FIXED) ---------- */
+    .navigation {
+      height: 70px;
+      background: #ffffff;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 10000; /* Increased z-index */
+      border-bottom: solid thin #717171;
+    }
+
+    /* LOGO BACKGROUND */
+    .brand {
+      position: absolute;
+      padding-left: 8px;
+      float: left;
+      line-height: 70px;
+      text-transform: uppercase;
+      font-size: 1.4em;
+    }
+
+    .brand a,
+    .brand a:visited {
+      color: #000000;
+      text-decoration: none;
+    }
+
+    /* LOGO IMAGE */
+    .brand img {
+      margin-top: 2vh;
+      margin-left: 0vh;
+      height: 4.8vh;
+      width: auto;
+      display: block;
+      transition: filter 0.2s ease;
+    }
+
+    /* LOGO IMAGE HOVER */
+    .brand img:hover {
+      filter: invert(100%) drop-shadow(2px 2px 2px rgba(0, 0, 0, 1));
+    }
+
+    .nav-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      height: 100%;
+    }
+
+    nav {
+      float: right;
+      height: 100%;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    nav ul li {
+      float: left;
+      position: relative;
+      height: 100%;
+    }
+
+    /* MENU BACKGROUND DESIGN */
+    nav ul li a,
+    nav ul li a:visited {
+      display: block;
+      padding: 0 20px;
+      line-height: 70px;
+      background: white;
+      color: #000000;
+      text-decoration: none;
+      transition: color 0.2s ease, background-color 0.2s ease;
+      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      height: 100%;
+    }
+
+    /* MENU HOVER DESIGN */
+    nav ul li a:hover {
+      background:
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url("NAV BACKGROUND.jpg");
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    nav ul li a:not(:only-child)::after {
+      padding-left: 4px;
+      content: " ▾";
+    }
+
+    nav ul li ul li {
+      min-width: 190px;
+      height: auto;
+    }
+
+    nav ul li ul li a {
+      padding: 15px;
+      line-height: 20px;
+      height: auto;
+    }
+
+    /* MENU DROPDOWNS DESIGN */
+    .nav-dropdown {
+      position: absolute;
+      display: none;
+      z-index: 10001; /* Higher than navbar */
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+      top: 70px; /* Position below navbar */
+    }
+
+    /* MENU MOBILE DESIGN */
+    .nav-mobile {
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #ffffff;
+      height: 70px;
+      width: 70px;
+      border-bottom: solid thin #717171;
+      z-index: 10002;
+    }
+
+    /* MENU MOBILE SIZING */
+    @media only screen and (max-width: 798px) {
+      .nav-mobile {
+        display: block;
+        margin-top: 0px;
+      }
+
+      nav {
+        width: 100%;
+        padding: 0;
+        float: none;
+        height: auto;
+      }
+
+      nav ul {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        z-index: 9999;
+      }
+
+      /* MENU MOBILE DESIGN */
+      nav ul li {
+        float: none;
+        border-bottom: solid thin #717171;
+        border-top: solid thin #ffffff;
+        height: auto;
+        width: 100%;
+      }
+
+      nav ul li a {
+        padding: 15px;
+        line-height: 20px;
+        height: auto;
+      }
+
+      nav ul li ul li a {
+        padding-left: 30px;
+      }
+
+      .nav-dropdown {
+        position: static;
+        top: auto;
+        width: 100%;
+      }
+    }
+
+    /* MENU PC SIZING */
+    @media screen and (min-width: 799px) {
+      .nav-list {
+        display: block !important;
+      }
+    }
+
+    #nav-toggle {
+      position: absolute;
+      left: 18px;
+      top: 22px;
+      cursor: pointer;
+      padding: 10px 35px 16px 0;
+    }
+
+    /* MENU MOBILE BUTTON DESIGN */
+    #nav-toggle span,
+    #nav-toggle span::before,
+    #nav-toggle span::after {
+      cursor: pointer;
+      border-radius: 1px;
+      height: 5px;
+      width: 35px;
+      background: #000000;
+      position: absolute;
+      display: block;
+      content: "";
+      transition: all 300ms ease-in-out;
+    }
+
+    #nav-toggle span::before {
+      top: -10px;
+    }
+
+    #nav-toggle span::after {
+      bottom: -10px;
+    }
+
+    #nav-toggle.active span {
+      background-color: transparent;
+    }
+
+    #nav-toggle.active span::before,
+    #nav-toggle.active span::after {
+      top: 0;
+    }
+
+    #nav-toggle.active span::before {
+      transform: rotate(45deg);
+    }
+
+    #nav-toggle.active span::after {
+      transform: rotate(-45deg);
+    }
+
+    /* ---------- GLOBAL STYLES ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      padding-top: 70px; /* Same as navbar height */
+      font-family: 'Open Sans', sans-serif;
+      line-height: 1.6;
+      background: #f8f9fa;
+      overflow-x: hidden;
+    }
+
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,500,300,700);
+    @import url(https://fonts.googleapis.com/css?family=Nunito);
+
+    h1 { font-size: 250%; }
+    p { font-size: 140%; line-height: 150%; color: #ffffff; }
+
+    /* ---------- PARALLAX SLIDE STYLES ---------- */
+    .parallax-slide {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .parallax-slide::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+
+    .parallax-content {
+      width: 70%;
+      max-width: 800px;
+      padding: 40px;
+      border-radius: 10px;
+      
+      background:
+    rgba(0, 0, 0, 0.6);
+
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, black 12%, black 80%, transparent),
+    linear-gradient(to bottom, transparent, black 12%, black 80%, transparent);
+
+  mask-image:
+    linear-gradient(to right, transparent, black 15%, black 75%, transparent),
+    linear-gradient(to bottom, transparent, black 24%, black 75%, transparent);
+
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+      color: #ffffff;
+}
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      margin: 20px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    
+    
+
+    /* ---------- TEAM SECTION STYLES ---------- */
+    .team-section {
+      position: relative;
+      padding: 80px 20px;
+      min-height: 100vh;
+      width: 100%;
+      background: linear-gradient(180deg, #000000 -10%, #ffffff 2%, #ffffff 97%, #000000 110%);
+      z-index: 3;
+      overflow: hidden;
+    }
+
+    .team-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      padding: 0 15px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 4.4rem;
+      margin-bottom: 10px;
+      color: #000000;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-family: "Georgia", "Times New Roman", serif;
+      font-weight:bold;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: rgba(0, 0, 0, 0.9);
+      margin-bottom: 60px;
+      font-size: 1.8rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 15px;
+      
+    }
+
+    /* Team Card Styles */
+    .team-card {
+      background: #ffffff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      margin-bottom: 30px;
+      text-align: center;
+      transform: scale(0.95);
+    }
+
+    .team-card:hover {
+      transform: translateY(-10px) scale(1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .team-img {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      aspect-ratio: 1 / 1;
+      background-color: #f0f0f0;
+    }
+
+    .team-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: filter 0.3s ease;
+    }
+
+    .team-card:hover .team-img img {
+      filter: brightness(0.8);
+    }
+
+    .team-title {
+      padding: 20px 15px;
+      transition: background-color 0.3s ease;
+    }
+
+    .team-card:hover .team-title {
+      background-color: #000000;
+    }
+
+    .team-title h5 {
+      margin: 0 0 8px 0;
+      font-size: 2.0rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #333;
+      transition: color 0.3s ease;
+    }
+
+    .team-card:hover .team-title h5 {
+      color: #ffffff;
+       text-decoration: none;
+    }
+
+    .team-title span {
+      font-size: 1.6rem;
+      color: #666;
+      letter-spacing: 0.3px;
+      display: block;
+      transition: color 0.3s ease;
+    }
+
+    .team-card:hover .team-title span {
+      color: #cccccc;
+        text-decoration: none;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .section-title { font-size: 2.6rem; }
+      .section-subtitle { font-size: 1.6rem; margin-bottom: 40px; }
+      .parallax-content { width: 85%; padding: 30px; }
+    }
+
+    @media (max-width: 576px) {
+      .section-title { font-size: 2.6rem; }
+       .section-subtitle { font-size: 1.6rem; margin-bottom: 40px; }
+      .team-title h5 { font-size: 2.2rem; }
+      .team-title span { font-size: 1.8rem; }
+    }
+
+    /* ---------- FOOTER (EXACT FROM FIRST CODE) ---------- */
+    .footer-distributed {
+      background: #000000;
+      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+      box-sizing: border-box;
+      width: 100%;
+      text-align: left;
+      font: bold 16px sans-serif;
+      padding: 55px 50px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .footer-distributed .footer-left,
+    .footer-distributed .footer-center,
+    .footer-distributed .footer-right {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .footer-distributed .footer-left {
+      width: 40%;
+    }
+
+    /* FOOTER TEXT */
+    .footerlogo {
+      filter: invert(100%);
+      margin: 0;
+      width: 60%;
+    }
+
+    /* FOOTER MENU */
+    .footer-distributed .footer-links {
+      color: #ffffff;
+      margin: 20px 0 12px;
+      padding: 0;
+    }
+
+    .footer-distributed .footer-links a {
+      display: inline-block;
+      line-height: 1.8;
+      font-weight: 400;
+      text-decoration: none;
+      color: inherit;
+      font: normal 14px sans-serif;
+    }
+
+    .footer-distributed .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* FOOTER TRADEMARK */
+    .footer-distributed .footer-company-name {
+      color: #9f9696;
+      font: normal 14px sans-serif;
+      margin: 0;
+    }
+
+    .footer-distributed .footer-center {
+      width: 35%;
+    }
+
+    .footer-distributed .footer-center i {
+      background-color: #ffffff;
+      color: #000000;
+      font-size: 15px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 30px;
+      margin: 10px 10px;
+      vertical-align: middle;
+    }
+
+    .footer-distributed .footer-center i.fa-envelope {
+      font-size: 17px;
+      line-height: 30px;
+    }
+
+    /* FOOTER DATA */
+    .footer-distributed .footer-center p {
+      display: inline-block;
+      color: #ffffff;
+      font-weight: 400;
+      vertical-align: middle;
+      margin: 0;
+      font: normal 14px sans-serif;
+    }
+
+    .footer-distributed .footer-center p span {
+      display: block;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 2;
+      font: normal 14px sans-serif;
+    }
+
+    /* FOOTER DATA EMAIL */
+    .footer-distributed .footer-center p a {
+      color: lightseagreen;
+      text-decoration: none;
+      font: normal 14px sans-serif;
+    }
+
+    .footer-distributed .footer-links a:before {
+      content: "|";
+      font-weight: 300;
+      font-size: 20px;
+      left: 0;
+      color: #fff;
+      display: inline-block;
+      padding-right: 5px;
+    }
+
+    .footer-distributed .footer-links .link-1:before {
+      content: none;
+    }
+
+    .footer-distributed .footer-right {
+      width: 20%;
+    }
+
+    /* FOOTER TERMS TEXT */
+    .footer-distributed .footer-company-about {
+      line-height: 20px;
+      color: #92999f;
+      font-size: 13px;
+      font-weight: normal;
+      margin: 0;
+      font: normal 13px sans-serif;
+    }
+
+    /* FOOTER TERMS HEADLINE */
+    .footer-distributed .footer-company-about span {
+      display: block;
+      color: #ffffff;
+      font: normal 14px sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .footer-distributed .footer-icons {
+      margin-top: 25px;
+    }
+
+    /* FOOTER TERMS LINKS */
+    .footer-distributed .footer-icons a {
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      border-radius: 2px;
+      font-size: 20px;
+      color: #ffffff;
+      text-align: center;
+      line-height: 35px;
+      margin-right: 15px;
+      margin-bottom: 5px;
+    }
+
+    .footer-distributed .footer-icons a img {
+      width: 35px;
+      height: 35px;
+      filter: grayscale(100%);
+      transition: 0.3s ease;
+    }
+
+    .footer-distributed .footer-icons a img:hover {
+      filter: grayscale(0%);
+    }
+
+    @media (max-width: 880px) {
+      .footer-distributed {
+        font: bold 14px sans-serif;
+        padding: 45px 30px;
+      }
+      .footer-distributed .footer-left,
+      .footer-distributed .footer-center,
+      .footer-distributed .footer-right {
+        display: block;
+        width: 100%;
+        margin-bottom: 40px;
+        text-align: center;
+      }
+      .footer-distributed .footer-center i {
+        margin-left: 0;
+      }
+      .footerlogo {
+        filter: invert(100%);
+        margin: 0 auto;
+        width: 35%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION (EXACT FROM FIRST CODE) -->
+<section class="navigation">
+  <div class="nav-container">
+    <div class="brand">
+      <a href="Home.html"><img src="Logo%20Post.png" alt="Logo" ></a>
+    </div>
+    <nav>
+      <div class="nav-mobile">
+        <a id="nav-toggle" href="#!"><span></span></a>
+      </div>
+      <ul class="nav-list">
+        <li><a href="Home.html">Home</a></li>
+        <li><a href="News.html">Our Stories</a></li>
+        <li>
+          <a href="#!">Our People</a>
+          <ul class="nav-dropdown">
+            <li><a href="Meet%20the%20Team.html">Meet the Lawyers</a></li>
+            <li><a href="Collaborators.html">Our Friends and Partners</a></li>
+          </ul>
+        </li>
+        <li><a href="Blog.html">About Us</a></li>
+        <li>
+          <a href="#!">More About Us</a>
+          <ul class="nav-dropdown">
+            <li><a href="Achievements.html">Our Achievements</a></li>
+            <li><a href="Topic%20Intro.html">Our History</a></li>
+            <li><a href="Topic%20Intro.html">Our Recognition</a></li>
+          </ul>
+        </li>
+        <li><a href="Contact%20Us.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</section>
+
+<!-- FIRST PARALLAX SLIDE -->
+<div class="parallax-slide" id="slide1">
+  <div class="parallax-content">
+    <h1>Meet Our Expert Team</h1>
+    <p>Our dedicated professionals bring decades of combined experience in law, delivering exceptional results for our clients. Get to know the faces behind our success.</p>
+    <p style="margin-top: 30px; font-size: 1.1rem;">Scroll down to explore our team members and their areas of expertise</p>
+  </div>
+</div>
+
+<!-- TEAM SECTION -->
+<section class="team-section" id="teamSection">
+  <div class="team-container">
+    <h2 class="section-title">Our Professionals</h2>
+    <p class="section-subtitle">Dedicated experts committed to excellence in legal practice and client service.</p>
+    
+    <!-- First row of team cards -->
+    <div class="row">
+      <div class="col-md-4 col-sm-6">
+        <a  href="Individual%20Portfolio.html" class="team-card">
+          <div class="team-img">
+            <img src="https://image.freepik.com/free-photo/man-standing-with-a-black-t-shirt_1187-1045.jpg" alt="team member">
+          </div>
+          <div class="team-title">
+            <h5>Martin Smith</h5>
+            <span>Founder &amp; CEO</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <a  href="Individual%20Portfolio.html" class="team-card">
+          <div class="team-img">
+            <img src="https://image.freepik.com/free-photo/elegant-man-with-thumbs-up_1149-1595.jpg" alt="team member">
+          </div>
+          <div class="team-title">
+            <h5>Franklin Harbet</h5>
+            <span>HR Manager</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <a  href="Individual%20Portfolio.html" class="team-card">
+          <div class="team-img">
+            <img src="https://image.freepik.com/free-photo/well-dressed-executive-with-crossed-arms_1098-3930.jpg" alt="team member">
+          </div>
+          <div class="team-title">
+            <h5>Linda Anderson</h5>
+            <span>Marketing Manager</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Second row of team cards -->
+    <div class="row">
+      <div class="col-md-4 col-sm-6">
+        <a  href="Individual%20Portfolio.html" class="team-card">
+          <div class="team-img">
+            <img src="https://image.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg" alt="team member">
+          </div>
+          <div class="team-title">
+            <h5>David Chen</h5>
+            <span>Senior Partner</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <a href="Individual%20Portfolio.html" class="team-card">
+          <div class="team-img">
+            <img src="https://image.freepik.com/free-photo/portrait-smiling-young-woman_171337-5065.jpg" alt="team member">
+          </div>
+          <div class="team-title">
+            <h5>Sarah Williams</h5>
+            <span>Legal Director</span>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4 col-sm-6">
+        <a href="Individual%20Portfolio.html" class="team-card">
+          <div class="team-img">
+            <img src="https://image.freepik.com/free-photo/handsome-confident-smiling-man-with-hands-crossed-chest_176420-21543.jpg" alt="team member">
+          </div>
+          <div class="team-title">
+            <h5>Michael Roberts</h5>
+            <span>Corporate Counsel</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER (EXACT FROM FIRST CODE) -->
+<footer class="footer-distributed">
+  <div class="footer-left">
+    <img class="footerlogo" src="Logo%20Post.png" alt="Logo">
+    <p class="footer-links">
+      <a href="Home.html" class="link-1">Home</a>
+      <a href="News.html">Blog</a>
+      <a href="Meet%20the%20Team.html">Team</a>
+      <a href="#">Terms and Policies</a>
+      <a href="Collaborators.html">Partnerships</a>
+      <a href="Contact%20Us.html">Contact</a>
+    </p>
+    <p class="footer-company-name">ZAKARIA AND ASSOCIATES © 2015</p>
+  </div>
+
+  <div class="footer-center">
+    <div>
+      <i class="fas fa-map-marker-alt"></i>
+      <p><span>444 S. Cedros Ave</span> Solana Beach, California</p>
+    </div>
+    <div>
+      <i class="fas fa-phone-alt"></i>
+      <p>+1.555.555.5555</p>
+    </div>
+    <div>
+      <i class="fas fa-envelope"></i>
+      <p><a href="mailto:support@company.com">support@company.com</a></p>
+    </div>
+  </div>
+
+  <div class="footer-right">
+    <p class="footer-company-about">
+      <span>About the company</span>
+      Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.
+    </p>
+    <div class="footer-icons">
+      <a href="#"><img src="Facebook.png" alt="Facebook"></a>
+      <a href="#"><img src="Instagram.png" alt="Instagram"></a>
+      <a href="#"><img src="Twitter.png" alt="Twitter"></a>
+    </div>
+  </div>
+</footer>
+
+<!-- JavaScript for Navigation -->
+<script>
+  (function($) {
+    $(function() {
+      $('nav ul li a:not(:only-child)').on('click', function(e) {
+        $(this).siblings('.nav-dropdown').toggle();
+        $('.nav-dropdown').not($(this).siblings()).hide();
+        e.stopPropagation();
+      });
+
+      $('html').on('click', function() {
+        $('.nav-dropdown').hide();
+      });
+
+      $('#nav-toggle').on('click', function() {
+        $('nav ul').slideToggle();
+        this.classList.toggle('active');
+      });
+    });
+  })(jQuery);
+</script>
+
+<!-- Font Awesome for footer icons (already loaded via CDN) -->
+</body>
+</html>

@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Meet Our Team - ZAKARIA AND ASSOCIATES</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- jQuery (required for nav JS) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Open+Sans:wght@300;400;600;700&family=Segoe+UI:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ===== CSS (COMBINED: NAVBAR/FOOTER FROM CAROUSEL PAGE + TEAM PAGE STYLES) ===== -->
+  <style>
+    /* ---------- RESET & BASE (from carousel page) ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* NAVIGATION BAR - FIXED (EXACT from carousel page) */
+    .navigation {
+      height: 70px;
+      background: #ffffff;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 10000;
+      border-bottom: solid thin #717171;
+    }
+
+    /* Add padding to body to prevent content from hiding under navbar */
+    body { 
+      margin: 0;
+      padding: 0;
+      padding-top: 70px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background: #f5f7fa;
+      overflow-x: hidden;
+    }
+
+    /* LOGO BACKGROUND */ 
+    .brand {
+      position: absolute;
+      padding-left: 8px;
+      float: left;
+      line-height: 70px;
+      text-transform: uppercase;
+      font-size: 1.4em;
+    }
+
+    .brand a,
+    .brand a:visited {
+      color: #000000;
+      text-decoration: none;
+    }
+
+    /* LOGO IMAGE */ 
+    .brand img {
+      margin-top: 2vh;
+      margin-left: 0vh;
+      height: 4.8vh;
+      width: auto;
+      display: block;
+      transition: filter 0.2s ease;
+    }
+
+    /* LOGO IMAGE HOVER */ 
+    .brand img:hover {
+      filter: invert(100%) drop-shadow(2px 2px 2px rgba(0, 0, 0, 1));
+    }
+
+    .nav-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      height: 100%;
+    }
+
+    nav {
+      float: right;
+      height: 100%;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    nav ul li {
+      float: left;
+      position: relative;
+      height: 100%;
+    }
+
+    /* MENU BACKGROUND DESIGN*/ 
+    nav ul li a,
+    nav ul li a:visited {
+      display: block;
+      padding: 0 20px;
+      line-height: 70px;
+      background: white;
+      color: #000000;
+      text-decoration: none;
+      transition: color 0.2s ease, background-color 0.2s ease;
+      font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      height: 100%;
+    }
+
+    /* MENU HOVER DESIGN (original carousel style with gradient/image) */ 
+    nav ul li a:hover {
+      background:
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url("NAV BACKGROUND.jpg");
+      background-size: cover;
+      background-position: center;
+      color: #ffffff;
+    }
+
+    nav ul li a:not(:only-child)::after {
+      padding-left: 4px;
+      content: " ▾";
+    }
+
+    nav ul li ul li {
+      min-width: 190px;
+      height: auto;
+    }
+
+    nav ul li ul li a {
+      padding: 15px;
+      line-height: 20px;
+      height: auto;
+    }
+
+    /* MENU DROPDOWNS DESIGN*/ 
+    .nav-dropdown {
+      position: absolute;
+      display: none;
+      z-index: 10001;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+      top: 70px;
+    }
+
+    /* MENU MOBILE DESIGN*/
+    .nav-mobile {
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: #ffffff;
+      height: 70px;
+      width: 70px;
+      border-bottom: solid thin #717171;
+      z-index: 10002;
+    }
+
+    /* MENU MOBILE SIZING*/
+    @media only screen and (max-width: 798px) {
+      .nav-mobile {
+        display: block;
+        margin-top: 0px;
+      }
+
+      nav {
+        width: 100%;
+        padding: 0;
+        float: none;
+        height: auto;
+      }
+
+      nav ul {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        z-index: 9999;
+      }
+
+      nav ul li {
+        float: none; 
+        border-bottom: solid thin #717171;
+        border-top: solid thin #ffffff;
+        height: auto;
+        width: 100%;
+      }
+
+      nav ul li a {
+        padding: 15px;
+        line-height: 20px;
+        height: auto;
+      }
+
+      nav ul li ul li a {
+        padding-left: 30px;
+      }
+
+      .nav-dropdown {
+        position: static;
+        top: auto;
+        width: 100%;
+      }
+    }
+
+    /* MENU PC SIZING */
+    @media screen and (min-width: 799px) {
+      .nav-list {
+        display: block !important;
+      }
+    }
+    
+    #nav-toggle {
+      position: absolute;
+      left: 18px;
+      top: 22px;
+      cursor: pointer;
+      padding: 10px 35px 16px 0;
+    }
+
+    /* MENU MOBILE BUTTON DESIGN*/
+    #nav-toggle span,
+    #nav-toggle span::before,
+    #nav-toggle span::after {
+      cursor: pointer; 
+      border-radius: 1px;
+      height: 5px;
+      width: 35px;
+      background: #000000;
+      position: absolute;
+      display: block;
+      content: "";
+      transition: all 300ms ease-in-out;
+    }
+
+    #nav-toggle span::before {
+      top: -10px;
+    }
+
+    #nav-toggle span::after {
+      bottom: -10px;
+    }
+
+    #nav-toggle.active span {
+      background-color: transparent;
+    }
+
+    #nav-toggle.active span::before,
+    #nav-toggle.active span::after {
+      top: 0;
+    }
+
+    #nav-toggle.active span::before {
+      transform: rotate(45deg);
+    }
+
+    #nav-toggle.active span::after {
+      transform: rotate(-45deg);
+    }
+
+    /* ---------- TEAM PAGE STYLES (preserved from original team page) ---------- */
+    .team-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .back-to-team {
+      margin-bottom: 30px;
+    }
+
+    .back-to-team a {
+      color: #2581DC;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .back-to-team a:hover {
+      color: #80a1cf;
+      text-decoration:underline;
+    }
+
+    .team-member-profile {
+      display: flex;
+      flex-direction: column;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .team-member-profile {
+        flex-direction: row;
+      }
+    }
+
+    .profile-left {
+      padding: 0px;
+      background: linear-gradient(135deg, #d2d2d2 0%, #2e2e2e 100%);
+      color: white;
+      text-align: center;
+      min-width: 300px;
+    }
+
+    @media (min-width: 768px) {
+      .profile-left {
+        width: 35%;
+      }
+    }
+
+    .profile-image {
+      width: 100%;
+      height: 37%;
+      border-top-left-radius: 15px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 25px;
+    
+    }
+
+    .member-name {
+      font-size: 32px;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .member-title {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+
+    .member-department {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .contact-info {
+      margin-top: 25px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .contact-item i {
+      width: 20px;
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    .social-links a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color:#b4d9ff;
+    }
+    
+   
+
+    .profile-right {
+      padding: 40px;
+      flex: 1;
+    }
+
+    @media (min-width: 768px) {
+      .profile-right {
+        width: 65%;
+      }
+    }
+
+    .section-title {
+      font-size: 24px;
+      color: #000000;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #eef5ff;
+      font-weight: 600;
+    }
+
+    .member-bio {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 30px;
+      color: #555;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 30px;
+    }
+
+    .skill-tag {
+      background: #e7e7e7;
+      color: #717171;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .experience-item {
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .experience-item:last-child {
+      border-bottom: none;
+    }
+
+    .exp-title {
+      font-weight: 600;
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .exp-company {
+      color: #bba100;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .exp-period {
+      color: #909090;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .exp-description {
+      color: #3e3e3e;
+      font-size: 15px;
+    }
+
+    
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .profile-left {
+        padding: 30px;
+      }
+      .profile-right {
+        padding: 30px;
+      }
+      .member-name {
+        font-size: 28px;
+      }
+      .profile-image {
+        width: 380px;
+        height: 380px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .team-container {
+        margin: 20px auto;
+      }
+      .profile-left, .profile-right {
+        padding: 20px;
+      }
+      .section-title {
+        font-size: 20px;
+      }
+    }
+
+    /* ---------- FOOTER (EXACT from carousel page) ---------- */
+    .footer-distributed {
+      background: #000000;
+      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+      box-sizing: border-box;
+      width: 100%;
+      text-align: left;
+      font: bold 16px sans-serif;
+      padding: 55px 50px;
+      position: relative;
+      z-index: 3;
+    }
+
+    .footer-distributed .footer-left,
+    .footer-distributed .footer-center,
+    .footer-distributed .footer-right {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    .footer-distributed .footer-left {
+      width: 40%;
+    }
+
+    .footerlogo {
+      filter: invert(100%);
+      margin: 0;
+      width: 60%;
+    }
+
+    .footer-distributed .footer-links {
+      color: #ffffff;
+      margin: 20px 0 12px;
+      padding: 0;
+    }
+
+    .footer-distributed .footer-links a {
+      display: inline-block;
+      line-height: 1.8;
+      font-weight: 400;
+      text-decoration: none;
+      color: inherit;
+      font: normal 14px sans-serif;
+    }
+    
+    .footer-distributed .footer-links a:hover {
+      display: inline-block;
+      line-height: 1.8;
+      font-weight: 400;
+      text-decoration: underline;
+      color: inherit;
+    }
+
+    .footer-distributed .footer-company-name {
+      color: #9f9696;
+      font: normal 14px sans-serif;
+      margin: 0;
+    }
+
+    .footer-distributed .footer-center {
+      width: 35%;
+    }
+
+    .footer-distributed .footer-center i {
+      background-color: #ffffff;
+      color: #000000;
+      font-size: 15px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 30px;
+      margin: 10px 10px;
+      vertical-align: middle;
+    }
+
+    .footer-distributed .footer-center i.fa-envelope {
+      font-size: 17px;
+      line-height: 30px;
+    }
+
+    .footer-distributed .footer-center p {
+      display: inline-block;
+      color: #ffffff;
+      font-weight: 400;
+      vertical-align: middle;
+      margin: 0;
+      font: normal 14px sans-serif;
+    }
+
+    .footer-distributed .footer-center p span {
+      display: block;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 2;
+    }
+
+    .footer-distributed .footer-center p a {
+      color: lightseagreen;
+      text-decoration: none;
+    }
+
+    .footer-distributed .footer-links a:before {
+      content: "|";
+      font-weight: 300;
+      font-size: 20px;
+      left: 0;
+      color: #fff;
+      display: inline-block;
+      padding-right: 5px;
+    }
+
+    .footer-distributed .footer-links .link-1:before {
+      content: none;
+    }
+
+    .footer-distributed .footer-right {
+      width: 20%;
+    }
+
+    .footer-distributed .footer-company-about {
+      line-height: 20px;
+      color: #92999f;
+      font-size: 13px;
+      font-weight: normal;
+      margin: 0;
+    }
+
+    .footer-distributed .footer-company-about span {
+      display: block;
+      color: #ffffff;
+      font: normal 14px sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .footer-distributed .footer-icons {
+      margin-top: 25px;
+    }
+
+    .footer-distributed .footer-icons a {
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      border-radius: 2px;
+      font-size: 20px;
+      color: #ffffff;
+      text-align: center;
+      line-height: 35px;
+      margin-right: 15px;
+      margin-bottom: 5px;
+    }
+
+    .footer-distributed .footer-icons a img {
+      width: 35px;
+      height: 35px;
+      filter: grayscale(100%);
+      transition: 0.3s ease;
+    }
+    
+    .footer-distributed .footer-icons a img:hover {
+      filter: grayscale(0%);
+    }
+
+    @media (max-width: 880px) {
+      .footer-distributed {
+        font: bold 14px sans-serif;
+        padding: 45px 30px;
+      }
+      .footer-distributed .footer-left,
+      .footer-distributed .footer-center,
+      .footer-distributed .footer-right {
+        display: block;
+        width: 100%;
+        margin-bottom: 40px;
+        text-align: center;
+      }
+      .footer-distributed .footer-center i {
+        margin-left: 0;
+      }
+      .footerlogo {
+        filter: invert(100%);
+        margin: 0 auto;
+        width: 35%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== NAVBAR (EXACT from carousel page) ===== -->
+  <section class="navigation">
+    <div class="nav-container">
+      <div class="brand">
+        <a href="Home.html"><img src="Logo%20Post.png" alt="Logo" ></a>
+      </div>
+
+      <nav>
+        <div class="nav-mobile">
+          <a id="nav-toggle" href="#!"><span></span></a>
+        </div>
+
+        <ul class="nav-list">
+          <li><a href="Home.html">Home</a></li>
+          <li><a href="News.html">Our Stories</a></li>
+          <li>
+            <a href="#!">Our People</a>
+            <ul class="nav-dropdown">
+              <li><a href="Meet%20the%20Team.html">Meet the Lawyers</a></li>
+              <li><a href="Collaborators.html">Our Friends and Partners</a></li>
+            </ul>
+          </li>
+          <li><a href="Blog.html">About Us</a></li>
+          <li>
+            <a href="#!">More About Us</a>
+            <ul class="nav-dropdown">
+              <li><a href="Achievements.html">Our Achievements</a></li>
+              <li><a href="Topic%20Intro.html">Our History</a></li>
+              <li><a href="Topic%20Intro.html">Our Recognition</a></li>
+            </ul>
+          </li>
+          <li><a href="Contact%20Us.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ===== TEAM MEMBER PROFILE PAGE CONTENT (preserved from original team page) ===== -->
+  <div class="team-container">
+    <!-- Back to Team link -->
+    <div class="back-to-team">
+      <a href="Meet%20the%20Team.html"><i class="fas fa-arrow-left"></i> Back to Team Members</a>
+    </div>
+
+    <!-- Team Member Profile Card -->
+    <div class="team-member-profile">
+      <!-- Left Column: Basic Info & Contact -->
+      <div class="profile-left">
+        <img src="Haider.jpg" 
+             alt="Alex Johnson" class="profile-image">
+        
+        <h1 class="member-name">Nayeem Haider</h1>
+        <p class="member-title">Senior Lawyer</p>
+        <div class="member-department">Senior Management Team</div>
+        
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>Nayeem.Haider@gmail.com</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <span>+1 (555) 123-4567</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Dhaka, Bangladesh</span>
+          </div>
+        </div>
+        
+        <div class="social-links">
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      
+      <!-- Right Column: Detailed Info -->
+      <div class="profile-right">
+        <h2 class="section-title">About Nayeem</h2>
+        <p class="member-bio">
+          Nayeem is a seasoned legal professional with 
+          extensive experience in handling complex legal matters and providing 
+          strategic counsel. He specializes in corporate law, regulatory compliance, 
+          and dispute resolution, consistently ensuring that all matters are addressed 
+          with precision, diligence, and adherence to applicable legal standards.
+        </p>
+        
+        <h2 class="section-title">Skills & Expertise</h2>
+        <div class="skills-list">
+          <span class="skill-tag">Case Management</span>
+          <span class="skill-tag">Client Advisory</span>
+          <span class="skill-tag">Courtroom Advocacy</span>
+          <span class="skill-tag">Prototyping</span>
+          <span class="skill-tag">Negotiation & Mediation</span>
+          <span class="skill-tag">Litigation Strategy</span>
+          <span class="skill-tag">Document Discovery</span>
+          <span class="skill-tag">Design Systems</span>
+          <span class="skill-tag">Wireframing</span>
+          <span class="skill-tag">Legal Technology Tools</span>
+        </div>
+        
+        <h2 class="section-title">Experience</h2>
+        <div class="experience-item">
+          <div class="exp-title">Senior Lawyer</div>
+          <div class="exp-company">Zakaria and Associates</div>
+          <div class="exp-period">2019 - Present</div>
+          <div class="exp-description">
+            Lead complex litigation and corporate advisory matters for a diverse client portfolio. Supervise a team of three junior associates and provide strategic guidance on case preparation and client management. Conduct legal research and integrate findings into case strategies. Developed and maintain the firm's internal case management and legal documentation systems.
+
+
+          </div>
+        </div>
+        
+        <div class="experience-item">
+          <div class="exp-title">Associate Attorney</div>
+          <div class="exp-company">Riverside Legal Group</div>
+          <div class="exp-period">2016 - 2019</div>
+          <div class="exp-description">
+            Manage a diverse caseload of civil and commercial litigation matters. Draft pleadings, motions, and discovery requests. Conduct legal research and prepare memoranda on complex issues. Represent clients in court hearings and mediation sessions. Collaborate with senior partners on trial strategy and case resolution.
+
+
+          </div>
+        </div>
+        
+        <div class="experience-item">
+          <div class="exp-title">Legal Intern</div>
+          <div class="exp-company">Pierce & Hanley LLP</div>
+          <div class="exp-period">2014 - 2016</div>
+          <div class="exp-description">
+           Assisted senior attorneys with legal research and document preparation. Prepared case summaries and draft memoranda for client consultations. Developed foundational skills in legal writing, statutory interpretation, and courtroom procedure.
+          </div>
+        </div>
+        
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER (EXACT from carousel page) ===== -->
+  <footer class="footer-distributed">
+    <div class="footer-left">
+      <h3> <img class="footerlogo" href="Home.html" src="Logo%20Post.png" alt="Logo"> </h3>
+      <p class="footer-links">
+        <a href="Home.html" class="link-1">Home</a>
+        <a href="News.html">Blog</a>
+        <a href="Meet%20the%20Team.html">Team</a>
+        <a href="#">Terms and Policies</a>
+        <a href="Collaborators.html">Partnerships</a>
+        <a href="Contact%20Us.html">Contact</a>
+      </p>
+      <p class="footer-company-name">ZAKARIA AND ASSOCIATES © 2015</p>
+    </div>
+
+    <div class="footer-center">
+      <div>
+        <i class="fa fa-map-marker"></i>
+        <p><span>444 S. Cedros Ave</span> Solana Beach, California</p>
+      </div>
+      <div>
+        <i class="fa fa-phone"></i>
+        <p>+1.555.555.5555</p>
+      </div>
+      <div>
+        <i class="fa fa-envelope"></i>
+        <p><a href="mailto:support@company.com">support@company.com</a></p>
+      </div>
+    </div>
+
+    <div class="footer-right">
+      <p class="footer-company-about">
+        <span>About the company</span>
+        Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.
+      </p>
+      <div class="footer-icons">
+        <a href="#"><img src="Facebook.png" alt="Facebook"></a>
+        <a href="#"><img src="Instagram.png" alt="Instagram"></a>
+        <a href="#"><img src="Twitter.png" alt="Twitter"></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT (NAV + TEAM PAGE ANIMATIONS) ===== -->
+  <script>
+    // Navigation JS (from carousel page)
+    (function($) {
+      $(function() {
+        $('nav ul li a:not(:only-child)').on('click', function(e) {
+          $(this).siblings('.nav-dropdown').toggle();
+          $('.nav-dropdown').not($(this).siblings()).hide();
+          e.stopPropagation();
+        });
+
+        $('html').on('click', function() {
+          $('.nav-dropdown').hide();
+        });
+
+        $('#nav-toggle').on('click', function() {
+          $('nav ul').slideToggle();
+          this.classList.toggle('active');
+        });
+        
+        // Animation for skill tags
+        $('.skill-tag').hover(
+          function() {
+            $(this).css({
+              'background': '#ffffff',
+              'color': 'black',
+              'transform': 'translateY(-3px)',
+              'transition': 'all 0.3s ease'
+            });
+          },
+          function() {
+            $(this).css({
+              'background': '#e5e5e5',
+              'color': '#727272',
+              'transform': 'translateY(0)'
+            });
+          }
+        );
+
+        // Back to team link click handler
+        $('.back-to-team a').on('click', function(e) {
+          e.preventDefault();
+          alert('In a complete website, this would navigate back to the team listing page.');
+        });
+      });
+    })(jQuery);
+  </script>
+</body>
+</html>
